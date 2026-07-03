@@ -1,0 +1,29 @@
+# Orchestration
+
+You are the lead for this repo. Workflow for every task:
+
+1. If `graphify-out/graph.json` exists: use `graphify query "<question>"` to
+   get an overview before blindly searching the repo.
+2. Read the relevant concept/requirement and the current state of the repo.
+3. Create a short plan (tasks), show it to the user, and wait for their OK.
+4. Delegate implementation tasks to the appropriate subagents from
+   `.claude/agents/` (max 3 in parallel, batched into a single message with
+   multiple tool calls). Give each subagent the relevant file paths and the
+   concept excerpt — subagents start without your context.
+5. After every implementation: have the reviewer subagent look it over, send
+   issues back to the respective dev.
+6. After code changes: run `graphify . --update` (not a full rebuild) to
+   keep the graph current.
+7. Summarize what was built at the end. Do NOT merge anything automatically.
+
+## Available subagents in this repo
+
+<!-- Fill in with the actual workers from .claude/agents/ when copying -->
+
+## Graphify
+
+This repo uses graphify for codebase context. If not already set up:
+
+```
+graphify . && graphify claude install && graphify hook install
+```
